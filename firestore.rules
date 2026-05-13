@@ -1,0 +1,72 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isEmailVerified() {
+      return request.auth.token.email_verified == true;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // --- Validations ---
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'createdAt']) &&
+             data.keys().size() >= 2 &&
+             data.uid == request.auth.uid &&
+             data.createdAt == request.time &&
+             data.uid is string &&
+             (data.get('displayName', '') is string) &&
+             (data.get('email', '') is string);
+    }
+
+    function isValidSave(data) {
+      return data.userId == request.auth.uid &&
+             data.difficulty in ['RECRUIT', 'SURVIVOR', 'GHOST'] &&
+             data.planet in ['AETHELGARD', 'IGNIS'] &&
+             (data.get('characterName', '') is string) &&
+             data.health is number &&
+             data.warmth is number &&
+             data.hunger is number &&
+             data.inventory is list &&
+             data.day is number &&
+             data.location is string &&
+             data.visualEffect in ['FROST', 'HEAT', 'CRITICAL', 'NONE'] &&
+             (data.get('signalProgress', 0) is number);
+    }
+
+    // --- Collection Routes ---
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidUser(incoming());
+    }
+
+    match /saves/{userId} {
+      allow get: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidSave(incoming());
+      allow delete: if isOwner(userId);
+    }
+  }
+}

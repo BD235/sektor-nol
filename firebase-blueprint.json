@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Public and private user data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "createdAt"]
+    },
+    "SaveState": {
+      "title": "Game Save State",
+      "description": "Persistence for survival simulation",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "difficulty": { "type": "string", "enum": ["RECRUIT", "SURVIVOR", "GHOST"] },
+        "planet": { "type": "string", "enum": ["AETHELGARD", "IGNIS"] },
+        "health": { "type": "number" },
+        "warmth": { "type": "number" },
+        "hunger": { "type": "number" },
+        "inventory": { "type": "array", "items": { "type": "string" } },
+        "day": { "type": "number" },
+        "location": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "difficulty", "planet", "health", "warmth", "hunger", "inventory", "day", "location", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "/saves/{userId}": {
+      "schema": "SaveState",
+      "description": "Survival game save data mapped to user ID"
+    }
+  }
+}
