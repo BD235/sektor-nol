@@ -9,12 +9,14 @@ Sektor Nol adalah game simulasi bertahan hidup berbasis teks (Text-Based Surviva
 Proyek ini dibangun untuk kompetisi #JuaraVibeCoding dan mendemonstrasikan integrasi modern antara UI reaktif dan Kecerdasan Buatan.
 
 ### Fitur Utama
+
 - **AI Dungeon Master**: Respons narasi dinamis menggunakan AI generatif.
 - **State Management Terpusat**: AI membaca status pemain dan mengembalikan format JSON untuk mengatur darah, kehangatan, dan inventaris.
 - **Efek Visual Reaktif**: Animasi antarmuka CRT dan efek cuaca ekstrem yang merespons secara langsung terhadap kondisi karakter.
-- **Keamanan Isolasi Data**: Sistem Autentikasi dan perlindungan rules database yang menjamin keamanan *save data* tiap pemain.
+- **Keamanan Isolasi Data**: Sistem Autentikasi dan perlindungan rules database yang menjamin keamanan _save data_ tiap pemain.
 
 ### Teknologi
+
 - **Google Gemini AI Engine** (gemini-2.5-flash)
 - **React 19 & Vite**
 - **Tailwind CSS 4.0**
@@ -60,38 +62,3 @@ Saat ini inti dari _game loop_, _state management_, perhitungan cuaca ekstrem, d
    npm run dev
    ```
 2. Buka browser dan arahkan ke URL yang muncul di terminal (biasanya `http://localhost:5173`).
-
----
-
-## Deploy ke Firebase Hosting (GCP)
-
-Untuk mendemonstrasikan game ini kepada publik atau penguji, deploy ke Firebase Hosting adalah cara tercepat dan gratis.
-
-1. **Install Firebase CLI**:
-   ```bash
-   npm install -g firebase-tools
-   ```
-2. **Login ke akun Google kamu**:
-   ```bash
-   firebase login
-   ```
-3. **Inisialisasi Project**:
-   ```bash
-   firebase init hosting
-   ```
-
-   - Pilih _Use an existing project_ dan pilih project Firebase milikmu.
-   - Pada pertanyaan "What do you want to use as your public directory?", ketik: `dist`
-   - Pada pertanyaan "Configure as a single-page app?", pilih: `Yes`
-   - Pada pertanyaan "Set up automatic builds with GitHub?", pilih: `No`
-4. **Build Aplikasi**:
-   ```bash
-   npm run build
-   ```
-5. **Deploy**:
-   ```bash
-   firebase deploy --only hosting
-   ```
-6. **Selesai!** Terminal akan memberikan **Hosting URL** yang bisa kamu bagikan.
-
-_(Catatan: Karena API Key disembunyikan di `.env.local` saat development, untuk production pastikan mengaktifkan proteksi API Key di Google Cloud Console agar key-mu aman walau berada di frontend)._
