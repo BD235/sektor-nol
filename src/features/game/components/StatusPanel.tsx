@@ -62,11 +62,10 @@ export default function StatusPanel({
             )}
             <button
               onClick={onToggleAudio}
-              className={`p-1.5 rounded-full transition-colors ${
-                isAudioEnabled
-                  ? 'text-emerald-500 bg-emerald-500/10'
-                  : 'text-emerald-900 hover:text-emerald-700'
-              }`}
+              className={`p-1.5 rounded-full transition-colors ${isAudioEnabled
+                ? 'text-emerald-500 bg-emerald-500/10'
+                : 'text-emerald-900 hover:text-emerald-700'
+                }`}
               title={isAudioEnabled ? 'Matikan Suara' : 'Aktifkan Suara'}
             >
               {isAudioEnabled ? (
@@ -110,9 +109,8 @@ export default function StatusPanel({
             <StatusItem
               icon={
                 <Radio
-                  className={`w-4 h-4 ${
-                    state.signalProgress > 0 ? 'animate-pulse text-cyan-500' : ''
-                  }`}
+                  className={`w-4 h-4 ${state.signalProgress > 0 ? 'animate-pulse text-cyan-500' : ''
+                    }`}
                 />
               }
               label="SINYAL"
@@ -127,7 +125,7 @@ export default function StatusPanel({
         <InventoryPanel items={state.inventory} />
 
         {/* Footer Info */}
-        <div className="mt-8 pt-4 border-t border-emerald-900/30 flex justify-between items-center text-[10px] opacity-40 uppercase tracking-widest leading-relaxed">
+        <div className="mt-8 pt-4 border-t border-emerald-900/30 flex justify-between items-center text-[10px] uppercase tracking-widest leading-relaxed">
           <div>
             Sektor: {state.planet}
             <br />

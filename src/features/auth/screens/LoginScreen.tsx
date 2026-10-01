@@ -48,9 +48,6 @@ export default function LoginScreen({ onLogin, onSkip, authError }: LoginScreenP
             <p className="text-emerald-800 text-sm italic">
               "Keheningan adalah satu-satunya temanmu di sini."
             </p>
-            <p className="text-emerald-900/60 text-[10px] uppercase tracking-widest font-bold mt-2">
-              v0.9.0 - Cerita Belum Sepenuhnya Selesai
-            </p>
           </motion.div>
           <motion.div
             initial={{ scaleX: 0 }}

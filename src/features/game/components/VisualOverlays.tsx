@@ -43,13 +43,31 @@ const VisualOverlays = React.memo(function VisualOverlays({ effect }: VisualOver
           className="frost-extreme"
         />
       )}
-      {activeEffect === 'HEAT' && (
+      {activeEffect === 'HEAT_NORMAL' && (
         <motion.div
-          key="heat"
+          key="heat-normal"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="heat-overlay"
+          className="heat-normal"
+        />
+      )}
+      {activeEffect === 'HEAT_MEDIUM' && (
+        <motion.div
+          key="heat-medium"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="heat-medium"
+        />
+      )}
+      {activeEffect === 'HEAT_EXTREME' && (
+        <motion.div
+          key="heat-extreme"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="heat-extreme"
         />
       )}
       {activeEffect === 'CRITICAL' && (

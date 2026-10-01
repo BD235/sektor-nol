@@ -25,6 +25,7 @@ const SOUND_URLS = {
   creature: 'https://assets.mixkit.co/active_storage/sfx/2141/2141-preview.mp3',
   start: 'https://assets.mixkit.co/active_storage/sfx/2550/2550-preview.mp3',
   hunger: 'https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3', // Low rumble/alert for hunger
+  win: 'https://assets.mixkit.co/active_storage/sfx/270/270-preview.mp3', // Fantasy game success notification
 } as const;
 
 /**
@@ -112,6 +113,11 @@ class SoundEngine {
   /** Plays a warning sound when hunger reaches critical levels. */
   public playHunger(): void {
     this.getSound('hunger', { volume: 0.5 }).play();
+  }
+
+  /** Plays the victory/win fanfare. */
+  public playWin(): void {
+    this.getSound('win', { volume: 0.7 }).play();
   }
 }
 

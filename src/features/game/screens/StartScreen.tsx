@@ -61,8 +61,9 @@ export default function StartScreen({
   };
 
   return (
-    <div className="min-h-[100dvh] flex flex-col justify-center items-center p-4 md:p-8 text-center space-y-8 md:space-y-12 max-w-4xl mx-auto overflow-y-auto scrollbar-hide py-12">
-      <motion.div
+    <div className="min-h-dvh flex flex-col items-center text-center max-w-4xl mx-auto overflow-y-auto scrollbar-hide">
+      <div className="w-full flex flex-col items-center space-y-5 md:space-y-10 px-4 md:px-8 py-6 md:py-12">
+        <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="space-y-4"
@@ -72,9 +73,6 @@ export default function StartScreen({
         </h1>
         <p className="text-emerald-800 text-sm italic">
           "Keheningan adalah satu-satunya temanmu di sini."
-        </p>
-        <p className="text-emerald-900/60 text-[10px] uppercase tracking-widest font-bold mt-2">
-          v0.9.0 - Cerita Belum Sepenuhnya Selesai
         </p>
       </motion.div>
 
@@ -103,7 +101,7 @@ export default function StartScreen({
             </div>
             
             {/* Divider */}
-            <div className="w-full h-[1px] sm:w-[1px] sm:h-8 bg-emerald-900/50 shrink-0" />
+            <div className="w-full h-px sm:w-px sm:h-8 bg-emerald-900/50 shrink-0" />
             
             {/* Buttons */}
             <div className="flex flex-row gap-2 shrink-0 w-full sm:w-auto justify-center">
@@ -220,13 +218,13 @@ export default function StartScreen({
       </div>
 
       {/* Launch Controls */}
-      <div className="flex flex-col items-center gap-6">
+      <div className="flex flex-col items-center gap-4 pb-6 md:pb-0 w-full">
         <button
           onClick={handleStart}
-          className="group relative px-12 py-4 bg-emerald-500 text-black font-bold uppercase tracking-[0.2em] rounded overflow-hidden hover:bg-emerald-400 transition-all active:scale-95"
+          className="group relative w-full max-w-xs px-12 py-4 bg-emerald-500 text-black font-bold uppercase tracking-[0.2em] rounded overflow-hidden hover:bg-emerald-400 transition-all active:scale-95"
         >
           <span className="relative z-10">Mulai Simulasi</span>
-          <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
+          <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
         </button>
 
         <button
@@ -263,6 +261,7 @@ export default function StartScreen({
         </div>,
         document.body
       )}
+      </div>
     </div>
   );
 }

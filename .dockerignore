@@ -1,0 +1,11 @@
+node_modules
+dist
+dist-server
+dist-ssr
+.git
+.env
+.env.*
+!.env.example
+*.local
+npm-debug.log*
+.firebase

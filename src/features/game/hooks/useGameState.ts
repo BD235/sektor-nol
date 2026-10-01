@@ -50,10 +50,6 @@ export function useGameState(initialScreen: GameScreen = 'START'): UseGameStateR
   const { isAudioEnabled, handleToggleAudio: rawToggleAudio } = useAudio();
   const { isSaving, handleSaveGame, handleLoadGame: rawLoadGame } = useGameSave();
 
-  const handleWin = useCallback(() => {
-    setGameScreen('WON');
-  }, []);
-
   const handleSave = useCallback(
     (data: GameState) => {
       handleSaveGame(data);
@@ -65,7 +61,6 @@ export function useGameState(initialScreen: GameScreen = 'START'): UseGameStateR
     state,
     setState,
     isAudioEnabled,
-    handleWin,
     handleSave
   );
 

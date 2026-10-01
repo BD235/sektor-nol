@@ -14,7 +14,7 @@ export type Difficulty = 'RECRUIT' | 'SURVIVOR' | 'GHOST';
 export type Planet = 'AETHELGARD' | 'IGNIS';
 
 /** Visual overlays triggered by environmental or health conditions. */
-export type VisualEffect = 'FROST_NORMAL' | 'FROST_MEDIUM' | 'FROST_EXTREME' | 'HEAT' | 'CRITICAL' | 'NONE';
+export type VisualEffect = 'FROST_NORMAL' | 'FROST_MEDIUM' | 'FROST_EXTREME' | 'HEAT_NORMAL' | 'HEAT_MEDIUM' | 'HEAT_EXTREME' | 'CRITICAL' | 'NONE';
 
 /** Screens managed by the application state machine. */
 export type GameScreen = 'LOGIN' | 'START' | 'PLAYING' | 'LOADING' | 'WON';
@@ -35,6 +35,7 @@ export interface GameState {
   visualEffect: VisualEffect;
   /** Signal progress from 0 to 100. Reaching 100 enables win condition. */
   signalProgress: number;
+  isWon?: boolean;
 }
 
 // ─── AI Response Types ──────────────────────────────────────────────

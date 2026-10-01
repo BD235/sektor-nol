@@ -31,14 +31,12 @@ function createLogId(): string {
  * @param state - Current game state (read-only, for sending to AI)
  * @param setState - Game state setter for applying AI updates
  * @param isAudioEnabled - Whether sound effects should play
- * @param onWin - Callback when the AI declares a win condition
  * @param onSave - Callback to persist state after each action
  */
 export function useGameAction(
   state: GameState | null,
   setState: React.Dispatch<React.SetStateAction<GameState | null>>,
   isAudioEnabled: boolean,
-  onWin: () => void,
   onSave: (data: GameState) => void
 ): UseGameActionReturn {
   const [logs, setLogs] = useState<LogEntry[]>([]);
@@ -119,13 +117,22 @@ export function useGameAction(
       const nextHealth = Math.min(100, Math.max(0, prev.health + (updates.health_delta || 0)));
       
       let computedEffect = updates.effect || 'NONE';
-      // Force override frost effects based on stats since AI might return old 'FROST' string
-      if (computedEffect === 'NONE' || (computedEffect as string) === 'FROST' || (computedEffect as string).startsWith('FROST')) {
-        if (nextHealth < 25) computedEffect = 'CRITICAL';
-        else if (nextWarmth <= 25) computedEffect = 'FROST_EXTREME';
-        else if (nextWarmth <= 50) computedEffect = 'FROST_MEDIUM';
-        else if (nextWarmth <= 75) computedEffect = 'FROST_NORMAL';
-        else computedEffect = 'NONE';
+      // Force override environmental effects based on stats since AI might return old strings
+      if (computedEffect === 'NONE' || (computedEffect as string).startsWith('FROST') || (computedEffect as string).startsWith('HEAT')) {
+        if (nextHealth < 25) {
+          computedEffect = 'CRITICAL';
+        } else if (prev.planet === 'IGNIS') {
+          if (nextWarmth <= 25) computedEffect = 'HEAT_EXTREME';
+          else if (nextWarmth <= 50) computedEffect = 'HEAT_MEDIUM';
+          else if (nextWarmth <= 75) computedEffect = 'HEAT_NORMAL';
+          else computedEffect = 'NONE';
+        } else {
+          // Default / AETHELGARD
+          if (nextWarmth <= 25) computedEffect = 'FROST_EXTREME';
+          else if (nextWarmth <= 50) computedEffect = 'FROST_MEDIUM';
+          else if (nextWarmth <= 75) computedEffect = 'FROST_NORMAL';
+          else computedEffect = 'NONE';
+        }
       }
 
       const nextState: GameState = {
@@ -146,11 +153,8 @@ export function useGameAction(
         location: updates.new_location || prev.location,
         day: prev.day + 0.1,
         visualEffect: computedEffect,
+        isWon: prev.isWon || updates.is_win || false,
       };
-
-      if (updates.is_win) {
-        onWin();
-      }
 
       if (isAudioRef.current) {
         if (updates.items_added?.length > 0) soundEngine.playDiscovery();

@@ -13,7 +13,6 @@ import { ErrorBoundary } from '@/features/game/components/ErrorBoundary';
 const LoginScreen = lazy(() => import('@/features/auth/screens/LoginScreen'));
 const StartScreen = lazy(() => import('@/features/game/screens/StartScreen'));
 const GameScreen = lazy(() => import('@/features/game/screens/GameScreen'));
-const WinScreen = lazy(() => import('@/features/game/screens/WinScreen'));
 const LoadingScreen = lazy(() => import('@/features/game/screens/LoadingScreen'));
 
 /** Suspense fallback — minimal loading indicator. */
@@ -108,11 +107,6 @@ export default function App() {
           </motion.div>
         )}
 
-        {game.gameScreen === 'WON' && (
-          <motion.div key="won" {...screenVariants} transition={{ duration: 0.4 }}>
-            <WinScreen planetName={game.state?.planet || 'UNKNOWN'} />
-          </motion.div>
-        )}
       </AnimatePresence>
     </Suspense>
     </ErrorBoundary>

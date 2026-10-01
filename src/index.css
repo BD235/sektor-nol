@@ -6,8 +6,19 @@
 }
 
 @layer base {
+  /* Ensure html and body allow full scrolling on mobile */
+  html {
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
   body {
-    @apply bg-zinc-950 text-emerald-500 font-mono overflow-hidden;
+    @apply bg-zinc-950 text-emerald-500 font-mono;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
     background-image: 
       radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 80%),
       linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
@@ -16,11 +27,12 @@
     pointer-events: auto;
   }
 
-  /* Scanline effect */
+  /* Scanline overlay — MUST be position:fixed, NOT absolute.
+     position:absolute on body clips the scrollable area on mobile browsers. */
   body::before {
     content: " ";
     display: block;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
@@ -67,10 +79,22 @@
     background: radial-gradient(circle, transparent 40%, rgba(200, 230, 255, 0.25) 100%);
   }
 
-  .heat-overlay {
+  .heat-normal {
     @apply fixed inset-0 pointer-events-none z-50;
-    box-shadow: inset 0 0 150px rgba(239, 68, 68, 0.4);
-    background: radial-gradient(circle, transparent 30%, rgba(255, 69, 0, 0.05) 100%);
+    box-shadow: inset 0 0 50px rgba(255, 140, 0, 0.15);
+    background: radial-gradient(circle, transparent 60%, rgba(255, 69, 0, 0.05) 100%);
+  }
+
+  .heat-medium {
+    @apply fixed inset-0 pointer-events-none z-50;
+    box-shadow: inset 0 0 100px rgba(255, 69, 0, 0.3);
+    background: radial-gradient(circle, transparent 50%, rgba(255, 69, 0, 0.1) 100%);
+  }
+
+  .heat-extreme {
+    @apply fixed inset-0 pointer-events-none z-50;
+    box-shadow: inset 0 0 180px rgba(239, 68, 68, 0.5);
+    background: radial-gradient(circle, transparent 40%, rgba(255, 69, 0, 0.25) 100%);
   }
 
   .critical-overlay {
